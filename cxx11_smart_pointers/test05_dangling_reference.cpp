@@ -5,6 +5,11 @@
 #include <iostream>
 #include "Person.h"
 
+/**
+ *   @pointer: store values, allocate, deallocate, reallocate
+ *   @reference: references can not reseat - change address/reference they pointing to, dangling reference will return wrong value, reusable
+ *   @smart_pointer: @pointer + avoid dangling pointer
+ */
 void test05_dangling_reference() {
 
     Person *raw1, *raw2;
@@ -42,6 +47,12 @@ void test05_dangling_reference() {
     delete raw1, unique3, shared4, shared5;
     std::cout << "delete raw1, unique3, shared4, shared5" << std::endl;
 
+    printf("raw1->sex: %d, %s\n", raw1->sex, (raw1->sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");   // WARN: Invalid value
+    printf("raw2->sex: %d, %s\n", raw2->sex, (raw2->sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
+    printf("unique3->sex: %d, %s\n", unique3->sex, (unique3->sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
+    printf("shared4->sex: %d, %s\n", shared4->sex, (shared4->sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
+    printf("shared5->sex: %d, %s\n", shared5->sex, (shared5->sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
+
     printf("(raw1 == nullptr): %s\n", (raw1 == nullptr) ? "true" : "false");   // WARN: raw1 can never be nullptr
     printf("(raw2 == nullptr): %s\n", (raw2 == nullptr) ? "true" : "false");   // WARN: raw2 will never be nullptr
     printf("(unique3 == nullptr): %s\n", (unique3 == nullptr) ? "true" : "false");
@@ -50,14 +61,14 @@ void test05_dangling_reference() {
     std::cout << "You can not check (weak6 == nullptr) because std::weak_ptr does not override operator '=='" << std::endl;
     printf("ref1 sex: %d, %s\n", ref1.sex, (ref1.sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
     printf("ref2 sex: %d, %s\n", ref2.sex, (ref2.sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
-    printf("ref3 sex: %d, %s\n", ref3.sex, (ref3.sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");   // WARN
+    printf("ref3 sex: %d, %s\n", ref3.sex, (ref3.sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
     printf("ref4 sex: %d, %s\n", ref4.sex, (ref4.sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
     printf("ref5 sex: %d, %s\n", ref5.sex, (ref5.sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
 
     //
     // reset() will do:
     //   1. Deallocation
-    //   2. Set pointer to nullptr
+    //   2. Set pointer to nullptr -> Runtime error rather than returning wrong value
     //
     unique3.reset();
     shared4.reset();
@@ -65,6 +76,12 @@ void test05_dangling_reference() {
     weak6.reset();
     std::cout << "Reset unique3, shared4, shared5, weak6" << std::endl;
 
+    printf("raw1->sex: %d, %s\n", raw1->sex, (raw1->sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
+    printf("raw2->sex: %d, %s\n", raw2->sex, (raw2->sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
+    // printf("unique3->sex: %d, %s\n", unique3->sex, (unique3->sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");   // nullptr exception
+    // printf("shared4->sex: %d, %s\n", shared4->sex, (shared4->sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");   // nullptr exception
+    // printf("shared5->sex: %d, %s\n", shared5->sex, (shared5->sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");   // nullptr exception
+
     printf("(raw1 == nullptr): %s\n", (raw1 == nullptr) ? "true" : "false");   // WARN: raw1 can never be nullptr
     printf("(raw2 == nullptr): %s\n", (raw2 == nullptr) ? "true" : "false");   // WARN: raw2 will never be nullptr
     printf("(unique3 == nullptr): %s\n", (unique3 == nullptr) ? "true" : "false");
@@ -73,9 +90,33 @@ void test05_dangling_reference() {
     std::cout << "You can not check (weak6 == nullptr) because std::weak_ptr does not override operator '=='" << std::endl;
     printf("ref1 sex: %d, %s\n", ref1.sex, (ref1.sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
     printf("ref2 sex: %d, %s\n", ref2.sex, (ref2.sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
-    printf("ref3 sex: %d, %s\n", ref3.sex, (ref3.sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");   // WARN
+    printf("ref3 sex: %d, %s\n", ref3.sex, (ref3.sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");   // WARN: Invalid value
     printf("ref4 sex: %d, %s\n", ref4.sex, (ref4.sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
     printf("ref5 sex: %d, %s\n", ref5.sex, (ref5.sex == Person::Sex::FEMALE) ? "identical to FEMALE" : "data gone");
+
+    //
+    // Reallocation of pointers
+    //
+    raw1 = new Person();
+    unique3 = std::unique_ptr<Person>(new Person());
+    shared4 = std::make_shared<Person>();
+
+    raw1->sex = Person::Sex::MALE;
+    unique3->sex = Person::Sex::MALE;
+    shared4->sex = Person::Sex::MALE;
+
+    // References can not reseat
+    // ref1 = *raw1;
+    // ref3 = *unique3;
+    // ref4 = *shared4;
+
+    //
+    // Reuse of reference (without reseat)
+    //
+    printf("ref1 sex: %d, %s\n", ref1.sex, (ref1.sex == Person::Sex::MALE) ? "identical to MALE" : "data not available");
+    printf("ref3 sex: %d, %s\n", ref3.sex, (ref3.sex == Person::Sex::MALE) ? "identical to MALE" : "data not available");   // WARN: Invalid value
+    printf("ref4 sex: %d, %s\n", ref4.sex, (ref4.sex == Person::Sex::MALE) ? "identical to MALE" : "data not available");
+
 
     std::cout << "FINISHED testing dangling reference" << std::endl;
 }
