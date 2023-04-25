@@ -50,10 +50,12 @@ void test04_reference_for_smart_pointer() {
     else
         std::cout << "Reference is NOT counted" << std::endl;
 
-    // unreseatable_shared6: `const` keyword protects address, not object. The object is mutable
+    // wrong_immutable_shared6:
+    //   (1) FATAL: `const` keyword may cause error related to memory deallocation, because `const` keyword prevents the pointer address from being nullptr
+    //   (2) Even the object is mutable - Using `const` keyword does not work correctly
     prev_refcnt = shared1.use_count();
-    const std::shared_ptr<Person> unreseatable_shared6 = shared1;
-    std::cout << "For const std::shared_ptr<T>& unreseatable_shared6,   unreseatable_shared6 <- shared1" << std::endl;
+    const std::shared_ptr<Person> wrong_immutable_shared6 = shared1;
+    std::cout << "For const std::shared_ptr<T>& wrong_immutable_shared6,   wrong_immutable_shared6 <- shared1" << std::endl;
     printf("shared1 reference count: %ld\n", shared1.use_count());
     if(prev_refcnt != shared1.use_count())
         std::cout << "Reference is correctly counted" << std::endl;
