@@ -13,10 +13,10 @@ void test04_reference_for_smart_pointer() {
     std::shared_ptr<Person> p1 = std::make_shared<Person>();
     printf("p1 reference count: %ld\n", p1.use_count());
 
-    // p2
+    // p2: This is what I recommend
     prev_refcnt = p1.use_count();
-    const std::shared_ptr<Person>& p2 = p1;
-    std::cout << "For const std::shared_ptr<>& p2,   p2 <- p1" << std::endl;
+    std::shared_ptr<const Person> p2 = p1;
+    std::cout << "For std::shared_ptr<const T> p2,   p2 <- p1" << std::endl;
     printf("p1 reference count: %ld\n", p1.use_count());
     printf("p2 reference count: %ld\n", p2.use_count());
     if(prev_refcnt != p1.use_count())
@@ -24,10 +24,10 @@ void test04_reference_for_smart_pointer() {
     else
         std::cout << "FAIL: Reference is NOT counted" << std::endl;
 
-    // p3
+    // p3: use_count will not increase due to reference (&)
     prev_refcnt = p1.use_count();
-    std::shared_ptr<Person>& p3 = p1;
-    std::cout << "For std::shared_ptr<>& p3,   p3 <- p1" << std::endl;
+    const std::shared_ptr<Person>& p3 = p1;
+    std::cout << "For const std::shared_ptr<T>& p3,   p3 <- p1" << std::endl;
     printf("p1 reference count: %ld\n", p1.use_count());
     printf("p2 reference count: %ld\n", p2.use_count());
     printf("p3 reference count: %ld\n", p3.use_count());
@@ -36,17 +36,33 @@ void test04_reference_for_smart_pointer() {
     else
         std::cout << "FAIL: Reference is NOT counted" << std::endl;
 
-    // p4
+    // p4: use_count will not increase due to reference (&)
     prev_refcnt = p1.use_count();
-    const std::shared_ptr<Person> p4 = p1;
-    std::cout << "For const std::shared_ptr<>& p4,   p4 <- p1" << std::endl;
+    std::shared_ptr<Person>& p4 = p1;
+    std::cout << "For std::shared_ptr<T>& p4,   p4 <- p1" << std::endl;
     printf("p1 reference count: %ld\n", p1.use_count());
     printf("p2 reference count: %ld\n", p2.use_count());
     printf("p3 reference count: %ld\n", p3.use_count());
+    printf("p4 reference count: %ld\n", p4.use_count());
     if(prev_refcnt != p1.use_count())
         std::cout << "Reference is correctly counted" << std::endl;
     else
         std::cout << "FAIL: Reference is NOT counted" << std::endl;
+
+    // p5
+    prev_refcnt = p1.use_count();
+    const std::shared_ptr<Person> p5 = p1;
+    std::cout << "For const std::shared_ptr<T>& p5,   p5 <- p1" << std::endl;
+    printf("p1 reference count: %ld\n", p1.use_count());
+    printf("p2 reference count: %ld\n", p2.use_count());
+    printf("p3 reference count: %ld\n", p3.use_count());
+    printf("p4 reference count: %ld\n", p4.use_count());
+    printf("p5 reference count: %ld\n", p5.use_count());
+    if(prev_refcnt != p1.use_count())
+        std::cout << "Reference is correctly counted" << std::endl;
+    else
+        std::cout << "FAIL: Reference is NOT counted" << std::endl;
+
 
     std::cout << "FINISHED testing reference for smart pointer" << std::endl;
 }
