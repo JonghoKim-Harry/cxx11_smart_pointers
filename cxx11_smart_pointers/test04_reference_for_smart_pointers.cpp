@@ -50,30 +50,30 @@ void test04_reference_for_smart_pointer() {
     else
         std::cout << "Reference is NOT counted" << std::endl;
 
-    // wrong_immutable_shared6: use_count will not increase due to reference (&)
+    // unreseatable_shared6: `const` keyword protects address, not object. The object is mutable
     prev_refcnt = shared1.use_count();
-    const std::shared_ptr<Person>& wrong_immutable_shared6 = shared1;
-    std::cout << "For const std::shared_ptr<T>& wrong_immutable_shared6,   wrong_immutable_shared6 <- shared1" << std::endl;
+    const std::shared_ptr<Person> unreseatable_shared6 = shared1;
+    std::cout << "For const std::shared_ptr<T>& unreseatable_shared6,   unreseatable_shared6 <- shared1" << std::endl;
     printf("shared1 reference count: %ld\n", shared1.use_count());
     if(prev_refcnt != shared1.use_count())
         std::cout << "Reference is correctly counted" << std::endl;
     else
         std::cout << "FAIL: Reference is NOT counted" << std::endl;
 
-    // wrong_shared7: use_count will not increase due to reference (&)
+    // wrong_immutable_shared7: use_count will not increase due to reference (&)
     prev_refcnt = shared1.use_count();
-    std::shared_ptr<Person>& wrong_shared7 = shared1;
-    std::cout << "For std::shared_ptr<T>& wrong_shared7,   wrong_shared7 <- shared1" << std::endl;
+    const std::shared_ptr<Person>& wrong_immutable_shared7 = shared1;
+    std::cout << "For const std::shared_ptr<T>& wrong_immutable_shared7,   wrong_immutable_shared7 <- shared1" << std::endl;
     printf("shared1 reference count: %ld\n", shared1.use_count());
     if(prev_refcnt != shared1.use_count())
         std::cout << "Reference is correctly counted" << std::endl;
     else
         std::cout << "FAIL: Reference is NOT counted" << std::endl;
 
-    // wrong_immutable_shared8: `const` keyword protects address, not object. The object is mutable
+    // wrong_shared8: use_count will not increase due to reference (&)
     prev_refcnt = shared1.use_count();
-    const std::shared_ptr<Person> wrong_immutable_shared8 = shared1;
-    std::cout << "For const std::shared_ptr<T>& wrong_immutable_shared8,   wrong_immutable_shared8 <- shared1" << std::endl;
+    std::shared_ptr<Person>& wrong_shared8 = shared1;
+    std::cout << "For std::shared_ptr<T>& wrong_shared8,   wrong_shared8 <- shared1" << std::endl;
     printf("shared1 reference count: %ld\n", shared1.use_count());
     if(prev_refcnt != shared1.use_count())
         std::cout << "Reference is correctly counted" << std::endl;
