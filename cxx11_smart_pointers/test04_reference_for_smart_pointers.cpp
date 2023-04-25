@@ -13,7 +13,7 @@ void test04_reference_for_smart_pointer() {
     std::shared_ptr<Person> p1 = std::make_shared<Person>();
     printf("p1 reference count: %ld\n", p1.use_count());
 
-    // p2: This is what I recommend
+    // p2: This is what I recommend for read-only (immutable) object
     prev_refcnt = p1.use_count();
     std::shared_ptr<const Person> p2 = p1;
     std::cout << "For std::shared_ptr<const T> p2,   p2 <- p1" << std::endl;
@@ -49,7 +49,7 @@ void test04_reference_for_smart_pointer() {
     else
         std::cout << "FAIL: Reference is NOT counted" << std::endl;
 
-    // p5
+    // p5: `const` keyword protects address, not object. The object is mutable
     prev_refcnt = p1.use_count();
     const std::shared_ptr<Person> p5 = p1;
     std::cout << "For const std::shared_ptr<T>& p5,   p5 <- p1" << std::endl;
