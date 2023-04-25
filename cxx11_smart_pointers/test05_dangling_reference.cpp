@@ -1,6 +1,3 @@
-//
-// Created by jongho on 23. 4. 24.
-//
 #include <memory>
 #include <iostream>
 #include "Person.h"
