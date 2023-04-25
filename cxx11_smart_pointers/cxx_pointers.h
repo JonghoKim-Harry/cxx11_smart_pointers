@@ -1,7 +1,3 @@
-//
-// Created by jongho on 23. 4. 24.
-//
-
 #ifndef CPP_SMART_POINTERS_CXX_SMART_POINTERS_H
 #define CPP_SMART_POINTERS_CXX_SMART_POINTERS_H
 
