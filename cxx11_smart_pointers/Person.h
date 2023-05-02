@@ -9,7 +9,7 @@ class Person {
 public:
     enum class Sex { UNASSIGNED, MALE, FEMALE };
     Person() = default;
-    Person(const std::string& name) : name_(name) { };
+    explicit Person(const std::string& name) : name_(name) { };
 
     // Members
     Sex sex_;
