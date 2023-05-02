@@ -7,7 +7,7 @@ int main() {
     test03_reference();
     test04_reference_for_smart_pointer();
     test05_dangling_reference();
-    test06_raw_pointer_pointing_to_smart_pointer();
+    test06_unique_ptr_as_function_parameter();
 
     return 0;
 }
