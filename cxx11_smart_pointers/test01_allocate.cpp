@@ -14,7 +14,7 @@ void test01_allocate() {
     //
     // Raw pointers
     //
-    raw1 = new Person();   // WARN: "Clang-Tidy: Use auto when initializing with new to avoid duplicating the type name"
+    raw1 = new Person();   // WARN: "Clang-Tidy: Use auto when initializing with new to avoid duplicating the type name_"
 
     //
     // Shared pointers
