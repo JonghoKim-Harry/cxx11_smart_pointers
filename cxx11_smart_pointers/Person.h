@@ -11,6 +11,8 @@ public:
     Person() = default;
     explicit Person(const std::string& name) : name_(name) { };
 
+    ~Person() {  std::cout << "Person deallocated!" << std::endl;  }
+
     // Members
     Sex sex_;
     const std::string birth_;
