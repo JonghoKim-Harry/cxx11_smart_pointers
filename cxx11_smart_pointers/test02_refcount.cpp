@@ -2,8 +2,10 @@
 #include <iostream>
 #include "Person.h"
 
+#include <boost/test/unit_test.hpp>
+#define BOOST_TEST_MODULE test02 reference count for std::shared_ptr and std::weak_ptr
 
-void test02_refcount() {
+BOOST_AUTO_TEST_CASE( test02_reference_count_for_shared_pointer_and_weak_pointer ) {
 
     std::shared_ptr<Person> shared1, shared2, shared3;
     std::weak_ptr<Person> weak4;

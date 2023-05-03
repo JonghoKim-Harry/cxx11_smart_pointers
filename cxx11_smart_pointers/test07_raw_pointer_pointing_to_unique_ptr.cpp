@@ -6,7 +6,10 @@ static void foo(const std::string& new_name, std::unique_ptr<Person> var);
 static void bar(const std::string& new_name, std::unique_ptr<Person> *var);
 static void boo(const std::string& new_name, std::unique_ptr<Person> &var);
 
-void test07_raw_pointer_pointing_to_unique_ptr() {
+#include <boost/test/unit_test.hpp>
+#define BOOST_TEST_MODULE test07 raw pointers pointing to std::unique_ptr
+
+BOOST_AUTO_TEST_CASE( test07_raw_pointers_pointing_to_unique_pointers ) {
     std::cout << "START testing raw pointer pointing to for smart pointer" << std::endl;
 
     std::unique_ptr<Person> jongho(new Person(std::string("Jongho")));

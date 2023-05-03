@@ -7,7 +7,11 @@
  *   @reference: references can not reseat - change address/reference they pointing to, dangling reference will return wrong value, reusable
  *   @smart_pointer: @pointer + reset() avoids dangling pointer by setting pointer to *nullptr*
  */
-void test05_dangling_reference() {
+
+#include <boost/test/unit_test.hpp>
+#define BOOST_TEST_MODULE test05 dangling l-value reference
+
+BOOST_AUTO_TEST_CASE( test05_dangling_lvalue_reference ) {
 
     Person *raw1, *raw2;
     std::unique_ptr<Person> unique3;

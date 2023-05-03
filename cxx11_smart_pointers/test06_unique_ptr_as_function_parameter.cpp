@@ -18,7 +18,10 @@ static void bar(std::unique_ptr<Person> const &var) {
     // Do nothing
 }
 
-void test06_unique_ptr_as_function_parameter() {
+#include <boost/test/unit_test.hpp>
+#define BOOST_TEST_MODULE test06 std::unique_ptr as a function parameter
+
+BOOST_AUTO_TEST_CASE( test06_unique_pointer_as_a_function_parameter ) {
     std::cout << "START testing to use std::unique_ptr as a function parameter" << std::endl;
 
     std::unique_ptr<Person> ptr(new Person);

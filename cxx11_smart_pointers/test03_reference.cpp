@@ -2,7 +2,10 @@
 #include <iostream>
 #include "Person.h"
 
-void test03_reference() {
+#include <boost/test/unit_test.hpp>
+#define BOOST_TEST_MODULE test03 l-value reference with smart pointers
+
+BOOST_AUTO_TEST_CASE( test03_lvalue_reference_with__smart_pointers ) {
     std::cout << "START testing reference" << std::endl;
 
     long prev_refcnt;

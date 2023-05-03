@@ -2,8 +2,11 @@
 #include <iostream>
 #include "Person.h"
 
-void test01_allocate() {
 
+#include <boost/test/unit_test.hpp>
+#define BOOST_TEST_MODULE test01 allocation of smart pointers
+
+BOOST_AUTO_TEST_CASE( test01_allocation_of_smart_pointers ) {
     Person *raw1;
     std::shared_ptr<Person> shared2, shared3, shared4;
     std::unique_ptr<Person> unique5, unique6;
