@@ -1,31 +1,29 @@
 #include <memory>
-#include <iostream>
 #include "Person.h"
+
+#include <boost/test/unit_test.hpp>
+#define BOOST_TEST_MODULE test07 raw pointers pointing to std::unique_ptr
 
 static void foo(const std::string& new_name, std::unique_ptr<Person> var);
 static void bar(const std::string& new_name, std::unique_ptr<Person> *var);
 static void boo(const std::string& new_name, std::unique_ptr<Person> &var);
 
-#include <boost/test/unit_test.hpp>
-#define BOOST_TEST_MODULE test07 raw pointers pointing to std::unique_ptr
-
 BOOST_AUTO_TEST_CASE( test07_raw_pointers_pointing_to_unique_pointers ) {
-    std::cout << "START testing raw pointer pointing to for smart pointer" << std::endl;
+    BOOST_TEST_MESSAGE("START TEST07 raw pointers pointing to unique pointers");
 
     std::unique_ptr<Person> jongho(new Person(std::string("Jongho")));
-    std::cout << "Name: " << jongho->name_ << std::endl;
+    BOOST_TEST_MESSAGE("Name: " << jongho->name_);
 
     // foo(std::string("foo"), jongho);   // COMPILATION ERROR: Call to deleted constructor of 'std::unique_ptr<Person>'
     //foo(std::string("foo"), std::move(jongho));   // RUNTIME ERROR
-    //std::cout << "Name: " << jongho->name_ << std::endl;
 
     bar(std::string("bar"), &jongho);
-    std::cout << "Name: " << jongho->name_ << std::endl;
+    BOOST_TEST_MESSAGE("Name: " << jongho->name_);
 
     boo(std::string("boo"), jongho);
-    std::cout << "Name: " << jongho->name_ << std::endl;
+    BOOST_TEST_MESSAGE("Name: " << jongho->name_);
 
-    std::cout << "FINISHED testing raw pointer pointing to smart pointer" << std::endl;
+    BOOST_TEST_MESSAGE("FINISHED TEST07 raw pointers pointing to unique pointers");
 }
 
 static void foo(const std::string& new_name, std::unique_ptr<Person> var) {
@@ -33,7 +31,7 @@ static void foo(const std::string& new_name, std::unique_ptr<Person> var) {
     var.reset();
     std::unique_ptr<Person> new_var(new Person(new_name));
     var = std::move(new_var);
-    std::cout << "Run foo()" << std::endl;
+    BOOST_TEST_MESSAGE("Run foo()");
 }
 
 static void bar(const std::string& new_name, std::unique_ptr<Person> *var) {
@@ -42,7 +40,7 @@ static void bar(const std::string& new_name, std::unique_ptr<Person> *var) {
     std::unique_ptr<Person> new_var(new Person(new_name));
     *var = std::move(new_var);
 
-    std::cout << "Run bar()" << std::endl;
+    BOOST_TEST_MESSAGE("Run bar()");
 }
 
 static void boo(const std::string& new_name, std::unique_ptr<Person> &var) {
@@ -50,5 +48,5 @@ static void boo(const std::string& new_name, std::unique_ptr<Person> &var) {
     std::unique_ptr<Person> new_var(new Person(new_name));
     var = std::move(new_var);
 
-    std::cout << "Run boo()" << std::endl;
+    BOOST_TEST_MESSAGE("Run boo()");
 }

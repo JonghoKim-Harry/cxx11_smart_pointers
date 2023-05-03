@@ -1,18 +1,16 @@
 #include <memory>
-#include <iostream>
 #include "Person.h"
-
 
 #include <boost/test/unit_test.hpp>
 #define BOOST_TEST_MODULE test01 allocation of smart pointers
 
 BOOST_AUTO_TEST_CASE( test01_allocation_of_smart_pointers ) {
+    BOOST_TEST_MESSAGE("START TEST01 smart pointer allocation");
+
     Person *raw1;
     std::shared_ptr<Person> shared2, shared3, shared4;
     std::unique_ptr<Person> unique5, unique6;
     std::weak_ptr<Person> weak7, weak8, weak9, weak10;
-
-    std::cout << "START testing allocation" << std::endl;
 
     //
     // Raw pointers
@@ -40,5 +38,5 @@ BOOST_AUTO_TEST_CASE( test01_allocation_of_smart_pointers ) {
     // weak9 = unique6;   // ERROR: "No viable conversion from 'std::unique_ptr<Person>' to 'std::weak_ptr<Person>'"
     weak10 = shared4;
 
-    std::cout << "FINISHED testing allocation" << std::endl;
+    BOOST_TEST_MESSAGE("FINISHED TEST01 smart pointer allocation");
 }

@@ -4,17 +4,33 @@
 #include <string>
 #include <memory>
 #include <list>
+#include <boost/test/unit_test.hpp>
+#include <boost/format.hpp>
 
 class Person {
 public:
-    enum class Sex { UNASSIGNED, MALE, FEMALE };
     Person() = default;
     explicit Person(const std::string& name) : name_(name) { };
 
+    typedef enum { UNASSIGNED, MALE, FEMALE } Sex;
+
+    inline const char * tostring(const Sex& sex) {
+        switch (sex) {
+            case Person::MALE:
+                return "MALE";
+            case Person::FEMALE:
+                return "FEMALE";
+
+        }
+    };
+
     ~Person() {
-        std::cout << "Person deallocated!" << std::endl;
-        printf("\tsex: %d\n\tbirth: %s\n\tname: %s\n\tnickname: %s\n", sex_, birth_.c_str(), name_.c_str(), nickname_ ==
-                nullptr ? "" : nickname_->c_str());
+        BOOST_TEST_MESSAGE("Person deallocated!");
+        BOOST_TEST_MESSAGE("\t- sex: " << sex_);
+        BOOST_TEST_MESSAGE("\t- birth: " << birth_);
+        BOOST_TEST_MESSAGE("\t- name: " << name_);
+        BOOST_TEST_MESSAGE("\t- nickname: " << (nickname_ == nullptr ? "" : *nickname_));
+        BOOST_TEST_MESSAGE("\t- email: " << (email_ == nullptr ? "" : *email_));
     }
 
     // Members
@@ -23,6 +39,7 @@ public:
     std::string name_;
     //std::string& nickname_;   // References are not pointers
     std::unique_ptr<std::string> nickname_;
+    std::string *email_;
 };
 
 #endif //CPP_SMART_POINTERS_PERSON_H
