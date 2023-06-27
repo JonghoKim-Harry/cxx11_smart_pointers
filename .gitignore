@@ -2,4 +2,5 @@
 !.gitignore
 
 # CMake build directory
+build
 cmake-build-debug
