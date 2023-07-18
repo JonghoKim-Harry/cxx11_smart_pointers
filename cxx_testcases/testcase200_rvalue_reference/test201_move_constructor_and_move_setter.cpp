@@ -1,5 +1,7 @@
+#include "Fixture.h"
+
 #include <boost/test/unit_test.hpp>
-#define BOOST_TEST_MODULE test201 move setters
+#define BOOST_TEST_MODULE test201 move constructors and move setters
 
 //#include <utility>   // std::forward
 
@@ -71,6 +73,8 @@ void Foo::print() {
     BOOST_TEST_MESSAGE("my bar: " << this->bar.get());
 }
 
+BOOST_FIXTURE_TEST_SUITE( test201, Fixture )
+
 BOOST_AUTO_TEST_CASE( test201_01_copy_constructor_and_copy_setter ) {
   Bar bar = Bar(1);
   Foo foo = Foo(bar);
@@ -110,3 +114,5 @@ BOOST_AUTO_TEST_CASE( test201_04_move_constructor_and_copy_setter ) {
     foo.set(bar2);
     foo.print();
 }
+
+BOOST_AUTO_TEST_SUITE_END()
