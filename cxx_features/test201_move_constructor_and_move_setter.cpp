@@ -71,7 +71,7 @@ void Foo::print() {
     BOOST_TEST_MESSAGE("my bar: " << this->bar.get());
 }
 
-BOOST_AUTO_TEST_CASE( test201_01_copy_constructor ) {
+BOOST_AUTO_TEST_CASE( test201_01_copy_constructor_and_copy_setter ) {
   Bar bar = Bar(1);
   Foo foo = Foo(bar);
   foo.print();
@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE( test201_01_copy_constructor ) {
   foo.print();
 }
 
-BOOST_AUTO_TEST_CASE( test201_02_move_constructor ) {
+BOOST_AUTO_TEST_CASE( test201_02_move_constructor_and_move_setter ) {
   Bar bar = Bar(2);
   Foo foo = Foo(std::move(bar));
   foo.print();
@@ -89,4 +89,24 @@ BOOST_AUTO_TEST_CASE( test201_02_move_constructor ) {
   Bar bar2 = Bar(22);
   foo.set(std::move(bar2));
   foo.print();
+}
+
+BOOST_AUTO_TEST_CASE( test201_03_copy_constructor_and_move_setter ) {
+    Bar bar = Bar(3);
+    Foo foo = Foo(bar);
+    foo.print();
+
+    Bar bar2 = Bar(33);
+    foo.set(std::move(bar2));
+    foo.print();
+}
+
+BOOST_AUTO_TEST_CASE( test201_04_move_constructor_and_copy_setter ) {
+    Bar bar = Bar(4);
+    Foo foo = Foo(std::move(bar));
+    foo.print();
+
+    Bar bar2 = Bar(44);
+    foo.set(bar2);
+    foo.print();
 }
