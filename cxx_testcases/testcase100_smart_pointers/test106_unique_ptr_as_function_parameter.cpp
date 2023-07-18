@@ -12,11 +12,11 @@
 #include <boost/test/unit_test.hpp>
 #define BOOST_TEST_MODULE test06 std::unique_ptr as a function parameter
 
-static void foo(std::unique_ptr<Person> var) {
+static void get_ownership_and_use_unique_ptr(std::unique_ptr<Person> var) {
     // Do nothing
 }
 
-static void bar(std::unique_ptr<Person> const &var) {
+static void borrow_and_use_unique_ptr(std::unique_ptr<Person> const &var) {
     // Do nothing
 }
 
@@ -25,10 +25,17 @@ BOOST_AUTO_TEST_CASE( test06_unique_pointer_as_a_function_parameter ) {
 
     std::unique_ptr<Person> ptr(new Person);
 
-    // foo(ptr);   // COMPILATION ERROR: Call to deleted constructor of 'std::unique_ptr<Person>'
-    foo(std::unique_ptr<Person>(new Person));   // By value
-    foo(std::move(ptr));   // By value
-    bar(ptr);   // By const l-value reference
+    // COMPILATION ERROR - Call to deleted constructor of 'std::unique_ptr<Person>'
+    // get_ownership_and_use_unique_ptr(ptr);
+
+    // RUNTIME ERROR - memory access violation at address
+    // get_ownership_and_use_unique_ptr(std::unique_ptr<Person>(new Person));
+
+    // Get ownership and use unique pointer
+    get_ownership_and_use_unique_ptr(std::move(ptr));
+
+    // Borrow and use unique pointer
+    borrow_and_use_unique_ptr(ptr);
 
     BOOST_TEST_MESSAGE("FINISHED TEST06 unique pointer as a function parameter");
 }
