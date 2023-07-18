@@ -1,6 +1,7 @@
 #include <memory>
 #include <iostream>
 #include "Person.h"
+#include "Fixture.h"
 
 /**
  *   Recommended ways to use std::unique_ptr as a function parameter
@@ -20,8 +21,7 @@ static void borrow_and_use_unique_ptr(std::unique_ptr<Person> const &var) {
     // Do nothing
 }
 
-BOOST_AUTO_TEST_CASE( test106_unique_pointer_as_a_function_parameter ) {
-    BOOST_TEST_MESSAGE("START TEST106 unique pointer as a function parameter");
+BOOST_FIXTURE_TEST_CASE( test106_unique_pointer_as_a_function_parameter, Fixture ) {
 
     std::unique_ptr<Person> ptr(new Person);
 
@@ -36,6 +36,4 @@ BOOST_AUTO_TEST_CASE( test106_unique_pointer_as_a_function_parameter ) {
 
     // Borrow and use unique pointer
     borrow_and_use_unique_ptr(ptr);
-
-    BOOST_TEST_MESSAGE("FINISHED TEST106 unique pointer as a function parameter");
 }

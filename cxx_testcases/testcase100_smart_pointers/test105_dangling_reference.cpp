@@ -1,5 +1,6 @@
 #include <memory>
 #include "Person.h"
+#include "Fixture.h"
 
 /**
  *   @pointer: store values, allocate, deallocate, reallocate
@@ -24,8 +25,7 @@
 } while(false)
 
 
-BOOST_AUTO_TEST_CASE( test105_dangling_lvalue_reference ) {
-    BOOST_TEST_MESSAGE("START TEST105 dangling l-value references");
+BOOST_FIXTURE_TEST_CASE( test105_dangling_lvalue_reference, Fixture ) {
 
     Person *raw1, *raw2;
     std::unique_ptr<Person> unique3;
@@ -149,6 +149,4 @@ BOOST_AUTO_TEST_CASE( test105_dangling_lvalue_reference ) {
     BOOST_TEST_MESSAGE(boost::format("ref3 sex_: %d, %s") % ref3.sex_ % ((ref3.sex_ == Person::Sex::MALE) ? "identical to MALE" : "data not available"));
     BOOST_TEST_MESSAGE(boost::format("ref4 sex_: %d, %s") % ref4.sex_ % ((ref4.sex_ == Person::Sex::MALE) ? "identical to MALE" : "data not available"));
     BOOST_TEST_MESSAGE(boost::format("ref5 sex_: %d, %s") % ref7.sex_ % ((ref7.sex_ == Person::Sex::MALE) ? "identical to MALE" : "data not available"));
-
-    BOOST_TEST_MESSAGE("FINISHED TEST105 dangling l-value references");
 }

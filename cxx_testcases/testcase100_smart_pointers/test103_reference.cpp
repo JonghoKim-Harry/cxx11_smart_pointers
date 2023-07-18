@@ -1,11 +1,11 @@
 #include <memory>
 #include "Person.h"
+#include "Fixture.h"
 
 #include <boost/test/unit_test.hpp>
 #define BOOST_TEST_MODULE test103 l-value reference with smart pointers
 
-BOOST_AUTO_TEST_CASE( test103_lvalue_reference ) {
-    BOOST_TEST_MESSAGE("START TEST103 l-value reference");
+BOOST_FIXTURE_TEST_CASE( test103_lvalue_reference, Fixture ) {
 
     long prev_refcnt;
 
@@ -22,6 +22,4 @@ BOOST_AUTO_TEST_CASE( test103_lvalue_reference ) {
         BOOST_TEST_MESSAGE("Reference is counted");
     else
         BOOST_TEST_MESSAGE("Reference is not counted");
-
-    BOOST_TEST_MESSAGE("FINISHED TEST103 l-value reference");
 }

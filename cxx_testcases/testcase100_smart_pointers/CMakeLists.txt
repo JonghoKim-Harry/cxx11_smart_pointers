@@ -10,6 +10,7 @@ include_directories (${Boost_INCLUDE_DIRS})
 add_executable(testcase100_smart_pointers
     boost_test_main.cpp
     Person.h
+    Fixture.h
     test101_allocate.cpp
     test102_refcount.cpp
     test103_reference.cpp
