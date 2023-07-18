@@ -9,7 +9,7 @@
  */
 
 #include <boost/test/unit_test.hpp>
-#define BOOST_TEST_MODULE test05 dangling l-value reference
+#define BOOST_TEST_MODULE test105 dangling l-value reference
 
 #define PRINT_PTR(ptr)   do {                                                   \
     if((ptr) == nullptr) {                                                      \
@@ -24,8 +24,8 @@
 } while(false)
 
 
-BOOST_AUTO_TEST_CASE( test05_dangling_lvalue_reference ) {
-    BOOST_TEST_MESSAGE("START TEST05 dangling l-value references");
+BOOST_AUTO_TEST_CASE( test105_dangling_lvalue_reference ) {
+    BOOST_TEST_MESSAGE("START TEST105 dangling l-value references");
 
     Person *raw1, *raw2;
     std::unique_ptr<Person> unique3;
@@ -150,5 +150,5 @@ BOOST_AUTO_TEST_CASE( test05_dangling_lvalue_reference ) {
     BOOST_TEST_MESSAGE(boost::format("ref4 sex_: %d, %s") % ref4.sex_ % ((ref4.sex_ == Person::Sex::MALE) ? "identical to MALE" : "data not available"));
     BOOST_TEST_MESSAGE(boost::format("ref5 sex_: %d, %s") % ref7.sex_ % ((ref7.sex_ == Person::Sex::MALE) ? "identical to MALE" : "data not available"));
 
-    BOOST_TEST_MESSAGE("FINISHED TEST05 dangling l-value references");
+    BOOST_TEST_MESSAGE("FINISHED TEST105 dangling l-value references");
 }

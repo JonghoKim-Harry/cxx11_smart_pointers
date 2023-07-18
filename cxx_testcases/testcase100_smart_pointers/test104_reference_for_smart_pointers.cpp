@@ -2,10 +2,10 @@
 #include "Person.h"
 
 #include <boost/test/unit_test.hpp>
-#define BOOST_TEST_MODULE test04 l-value reference with smart pointers
+#define BOOST_TEST_MODULE test104 l-value reference with smart pointers
 
-BOOST_AUTO_TEST_CASE( test04_lvalue_reference_with_smart_pointers ) {
-    BOOST_TEST_MESSAGE("START TEST04 l-value reference with smart pointers");
+BOOST_AUTO_TEST_CASE( test104_lvalue_reference_with_smart_pointers ) {
+    BOOST_TEST_MESSAGE("START TEST104 l-value reference with smart pointers");
 
     long prev_refcnt;
 
@@ -84,5 +84,5 @@ BOOST_AUTO_TEST_CASE( test04_lvalue_reference_with_smart_pointers ) {
     else
         BOOST_TEST_MESSAGE("FAIL: Reference is NOT counted");
 
-    BOOST_TEST_MESSAGE("FINISHED TEST04 l-value reference with smart pointers");
+    BOOST_TEST_MESSAGE("FINISHED TEST104 l-value reference with smart pointers");
 }

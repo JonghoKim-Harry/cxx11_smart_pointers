@@ -2,10 +2,10 @@
 #include "Person.h"
 
 #include <boost/test/unit_test.hpp>
-#define BOOST_TEST_MODULE test01 allocation of smart pointers
+#define BOOST_TEST_MODULE test101 allocation of smart pointers
 
-BOOST_AUTO_TEST_CASE( test01_allocation_of_smart_pointers ) {
-    BOOST_TEST_MESSAGE("START TEST01 smart pointer allocation");
+BOOST_AUTO_TEST_CASE( test101_allocation_of_smart_pointers ) {
+    BOOST_TEST_MESSAGE("START TEST101 smart pointer allocation");
 
     Person *raw1;
     std::shared_ptr<Person> shared2, shared3, shared4;
@@ -38,5 +38,5 @@ BOOST_AUTO_TEST_CASE( test01_allocation_of_smart_pointers ) {
     // weak9 = unique6;   // ERROR: "No viable conversion from 'std::unique_ptr<Person>' to 'std::weak_ptr<Person>'"
     weak10 = shared4;
 
-    BOOST_TEST_MESSAGE("FINISHED TEST01 smart pointer allocation");
+    BOOST_TEST_MESSAGE("FINISHED TEST101 smart pointer allocation");
 }

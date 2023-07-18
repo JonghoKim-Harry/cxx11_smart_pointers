@@ -2,10 +2,10 @@
 #include "Person.h"
 
 #include <boost/test/unit_test.hpp>
-#define BOOST_TEST_MODULE test02 reference count for std::shared_ptr and std::weak_ptr
+#define BOOST_TEST_MODULE test102 reference count for std::shared_ptr and std::weak_ptr
 
-BOOST_AUTO_TEST_CASE( test02_reference_count_for_shared_pointer_and_weak_pointer ) {
-    BOOST_TEST_MESSAGE("START TEST02 reference count for shared pointers and weak pointers");
+BOOST_AUTO_TEST_CASE( test102_reference_count_for_shared_pointer_and_weak_pointer ) {
+    BOOST_TEST_MESSAGE("START TEST102 reference count for shared pointers and weak pointers");
 
     std::shared_ptr<Person> shared1, shared2, shared3;
     std::weak_ptr<Person> weak4;
@@ -79,5 +79,5 @@ BOOST_AUTO_TEST_CASE( test02_reference_count_for_shared_pointer_and_weak_pointer
     BOOST_TEST_MESSAGE("shared3" << ((shared3 == nullptr) ? ": nullptr" : " has data"));
     BOOST_TEST_MESSAGE("You can not check (weak4 == nullptr) because std::weak_ptr does not override operator '=='");
 
-    BOOST_TEST_MESSAGE("FINISHED TEST02 reference count for shared pointers and weak pointers");
+    BOOST_TEST_MESSAGE("FINISHED TEST102 reference count for shared pointers and weak pointers");
 }

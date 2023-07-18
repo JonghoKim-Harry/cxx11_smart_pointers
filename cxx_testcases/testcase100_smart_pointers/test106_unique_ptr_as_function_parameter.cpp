@@ -10,7 +10,7 @@
  *   See: https://stackoverflow.com/questions/8114276/how-do-i-pass-a-unique-ptr-argument-to-a-constructor-or-a-function
  */
 #include <boost/test/unit_test.hpp>
-#define BOOST_TEST_MODULE test06 std::unique_ptr as a function parameter
+#define BOOST_TEST_MODULE test106 std::unique_ptr as a function parameter
 
 static void get_ownership_and_use_unique_ptr(std::unique_ptr<Person> var) {
     // Do nothing
@@ -20,8 +20,8 @@ static void borrow_and_use_unique_ptr(std::unique_ptr<Person> const &var) {
     // Do nothing
 }
 
-BOOST_AUTO_TEST_CASE( test06_unique_pointer_as_a_function_parameter ) {
-    BOOST_TEST_MESSAGE("START TEST06 unique pointer as a function parameter");
+BOOST_AUTO_TEST_CASE( test106_unique_pointer_as_a_function_parameter ) {
+    BOOST_TEST_MESSAGE("START TEST106 unique pointer as a function parameter");
 
     std::unique_ptr<Person> ptr(new Person);
 
@@ -37,5 +37,5 @@ BOOST_AUTO_TEST_CASE( test06_unique_pointer_as_a_function_parameter ) {
     // Borrow and use unique pointer
     borrow_and_use_unique_ptr(ptr);
 
-    BOOST_TEST_MESSAGE("FINISHED TEST06 unique pointer as a function parameter");
+    BOOST_TEST_MESSAGE("FINISHED TEST106 unique pointer as a function parameter");
 }
