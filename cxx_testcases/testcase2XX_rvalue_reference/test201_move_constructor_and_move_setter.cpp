@@ -17,15 +17,15 @@ protected:
 };
 
 Bar::Bar() {
-    BOOST_TEST_MESSAGE("CALL CONSTRUCTOR: Bar::Bar()");
+    BOOST_TEST_MESSAGE(typeid(this).name() << " CALL CONSTRUCTOR, this: " << this << ", bar: " << integer);
 }
 
 Bar::Bar(int i) : integer(i) {
-    BOOST_TEST_MESSAGE("CALL CONSTRUCTOR: Bar::Bar(int i)");
+    BOOST_TEST_MESSAGE(typeid(this).name() << " CALL CONSTRUCTOR, this: " << this << ", bar: " << integer);
 }
 
 Bar::~Bar() noexcept {
-    BOOST_TEST_MESSAGE("CALL DESTRUCTOR: Bar::~Bar()");
+    BOOST_TEST_MESSAGE(typeid(this).name() << " CALL DESTRUCTOR, this: " << this << ", bar: " << integer);
 }
 
 int Bar::get() {
@@ -51,22 +51,22 @@ protected:
 
 Foo::Foo(const Bar& bar) {
     this->bar = bar;
-    BOOST_TEST_MESSAGE("CALL CONSTRUCTOR: const T&");
+    BOOST_TEST_MESSAGE(typeid(this).name() << " CALL COPY CONSTRUCTOR, this: " << this);
 }
 
 Foo::Foo(Bar&& bar) noexcept {
     this->bar = std::move(bar);
-    BOOST_TEST_MESSAGE("CALL CONSTRUCTOR: T&&");
+    BOOST_TEST_MESSAGE(typeid(this).name() << " CALL MOVE CONSTRUCTOR, this: " << this);
 }
 
 void Foo::set(const Bar& bar) {
     this->bar = bar;
-    BOOST_TEST_MESSAGE("CALL SETTER: const T&");
+    BOOST_TEST_MESSAGE(typeid(this).name() << " CALL COPY SETTER, this: " << this);
 }
 
 void Foo::set(Bar&& bar) noexcept {
     this->bar = std::move(bar);
-    BOOST_TEST_MESSAGE("CALL SETTER: T&&");
+    BOOST_TEST_MESSAGE(typeid(this).name() << " CALL MOVE SETTER, this: " << this);
 }
 
 void Foo::print() {
