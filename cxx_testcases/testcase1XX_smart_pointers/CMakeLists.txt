@@ -7,7 +7,7 @@ set(Boost_USE_STATIC_LIBS OFF)
 find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 include_directories (${Boost_INCLUDE_DIRS})
 
-add_executable(testcase100_smart_pointers
+add_executable(testcase1XX_smart_pointers
     boost_test_main.cpp
     Person.h
     Fixture.h
@@ -20,7 +20,7 @@ add_executable(testcase100_smart_pointers
     test107_raw_pointer_pointing_to_unique_ptr.cpp
 )
 
-target_link_libraries(testcase100_smart_pointers
+target_link_libraries(testcase1XX_smart_pointers
     ${Boost_FILESYSTEM_LIBRARY}
     ${Boost_SYSTEM_LIBRARY}
     ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
