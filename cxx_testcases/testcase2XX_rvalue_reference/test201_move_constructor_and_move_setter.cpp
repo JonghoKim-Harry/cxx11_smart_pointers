@@ -36,10 +36,8 @@ class Foo {
 public:
     Foo(const Bar& bar);
     Foo(Bar&& bar) noexcept;
+    ~Foo();
 
-    //void set(Bar bar);
-    //void set(const Bar bar);
-    //void set(Bar& bar);
     void set(const Bar& bar);
     void set(Bar&& bar) noexcept;
 
@@ -55,8 +53,14 @@ Foo::Foo(const Bar& bar) {
 }
 
 Foo::Foo(Bar&& bar) noexcept {
+    auto temp = std::move(this->bar);
     this->bar = std::move(bar);
+    bar = std::move(temp);
     BOOST_TEST_MESSAGE(typeid(this).name() << " CALL MOVE CONSTRUCTOR, this: " << this);
+}
+
+Foo::~Foo() {
+    BOOST_TEST_MESSAGE(typeid(this).name() << " CALL DESTRUCTOR, this: " << this << ", my bar: " << this->bar.get());
 }
 
 void Foo::set(const Bar& bar) {
@@ -65,12 +69,14 @@ void Foo::set(const Bar& bar) {
 }
 
 void Foo::set(Bar&& bar) noexcept {
+    auto temp = std::move(this->bar);
     this->bar = std::move(bar);
+    bar = std::move(temp);
     BOOST_TEST_MESSAGE(typeid(this).name() << " CALL MOVE SETTER, this: " << this);
 }
 
 void Foo::print() {
-    BOOST_TEST_MESSAGE("my bar: " << this->bar.get());
+    BOOST_TEST_MESSAGE(typeid(this).name() << " my bar: " << this->bar.get());
 }
 
 BOOST_FIXTURE_TEST_SUITE( test201, Fixture )
